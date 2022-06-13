@@ -7,9 +7,11 @@ const {
 } = require("botbuilder");
 const rawWelcomeCard = require("./adaptiveCards/welcome.json");
 const rawLearnCard = require("./adaptiveCards/learn.json");
+const rawBitcoinCard = require("./adaptiveCards/bitcoin.json");
 const cardTools = require("@microsoft/adaptivecards-tools");
 
 const BitcoinService = require("./src/services/bitcoin-service");
+const CurrencyHelper = require("./src/helpers/currency-helper");
 
 class TeamsBot extends TeamsActivityHandler {
   constructor() {
@@ -52,13 +54,24 @@ class TeamsBot extends TeamsActivityHandler {
         case "bitcoin": {
           const bitcoinResult = await BitcoinService.now();
           const price = bitcoinResult.quote.USD.price;
+          const priceFormatted = CurrencyHelper.formatToUSD(price);
 
-          const formatter = new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "USD",
+          await context.sendActivity(priceFormatted);
+          break;
+        }
+        case "bitcoin_card": {
+          const bitcoinResult = await BitcoinService.now();
+          const price = bitcoinResult.quote.USD.price;
+          const priceFormatted = CurrencyHelper.formatToUSD(price);
+
+          const card = cardTools.AdaptiveCards.declare(rawBitcoinCard).render({
+            price: priceFormatted,
           });
 
-          await context.sendActivity(formatter.format(price));
+          await context.sendActivity({
+            attachments: [CardFactory.adaptiveCard(card)],
+          });
+
           break;
         }
         /**
