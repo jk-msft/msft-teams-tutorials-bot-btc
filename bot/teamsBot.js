@@ -137,24 +137,35 @@ class TeamsBot extends TeamsActivityHandler {
   // Search.
   async handleTeamsMessagingExtensionQuery(context, query) {
     const searchQuery = query.parameters[0].value;
-    const response = await axios.get(
-      `http://registry.npmjs.com/-/v1/search?${querystring.stringify({
-        text: searchQuery,
-        size: 8,
-      })}`
-    );
+    console.log("handleTeamsMessagingExtensionQuery");
 
     const attachments = [];
-    response.data.objects.forEach((obj) => {
-      const heroCard = CardFactory.heroCard(obj.package.name);
-      const preview = CardFactory.heroCard(obj.package.name);
-      preview.content.tap = {
-        type: "invoke",
-        value: { name: obj.package.name, description: obj.package.description },
-      };
-      const attachment = { ...heroCard, preview };
-      attachments.push(attachment);
-    });
+
+    const btcHeroCard = CardFactory.heroCard("Bitcoin");
+    const btcPreviewCard = CardFactory.heroCard("Bitcoin");
+    btcPreviewCard.content.tap = {
+      type: "invoke",
+      value: {
+        name: "Bitcoin",
+        description:
+          "A decentralized digital currency that can be transferred on the peer-to-peer bitcoin network",
+      },
+    };
+    const btcAttachment = { ...btcHeroCard, preview: btcPreviewCard };
+    attachments.push(btcAttachment);
+
+    const ethHeroCard = CardFactory.heroCard("Ethereum");
+    const ethPreviewCard = CardFactory.heroCard("Ethereum");
+    ethPreviewCard.content.tap = {
+      type: "invoke",
+      value: {
+        name: "Ethereum",
+        description:
+          "A decentralized, open-source blockchain with smart contract functionality",
+      },
+    };
+    const ethAttachment = { ...ethHeroCard, preview: ethPreviewCard };
+    attachments.push(ethAttachment);
 
     return {
       composeExtension: {
