@@ -141,30 +141,71 @@ class TeamsBot extends TeamsActivityHandler {
 
     const attachments = [];
 
-    const btcHeroCard = CardFactory.heroCard("Bitcoin");
-    const btcPreviewCard = CardFactory.heroCard("Bitcoin");
-    btcPreviewCard.content.tap = {
-      type: "invoke",
-      value: {
-        name: "Bitcoin",
-        description:
-          "A decentralized digital currency that can be transferred on the peer-to-peer bitcoin network",
-      },
-    };
-    const btcAttachment = { ...btcHeroCard, preview: btcPreviewCard };
+    const btcHeroCard = CardFactory.heroCard(
+      "Bitcoin",
+      "A decentralized digital currency that can be transferred on the peer-to-peer bitcoin network",
+      [
+        {
+          url: "https://www.aljazeera.com/wp-content/uploads/2022/04/bitcoin-2.jpg",
+        },
+      ],
+      [
+        {
+          type: "openUrl",
+          title: "Official website",
+          value: "https://bitcoin.org/en/",
+        },
+        {
+          type: "openUrl",
+          title: "See the current price",
+          value: "https://coinmarketcap.com/currencies/bitcoin/",
+        },
+      ]
+    );
+    // const btcPreviewCard = CardFactory.heroCard("Bitcoin");
+    // btcPreviewCard.content.tap = {
+    //   type: "invoke",
+    //   value: {
+    //     name: "Bitcoin",
+    //     description:
+    //       "A decentralized digital currency that can be transferred on the peer-to-peer bitcoin network",
+    //   },
+    // };
+    const btcAttachment = { ...btcHeroCard };
+    console.log("btcAttachment", btcAttachment);
     attachments.push(btcAttachment);
 
-    const ethHeroCard = CardFactory.heroCard("Ethereum");
-    const ethPreviewCard = CardFactory.heroCard("Ethereum");
-    ethPreviewCard.content.tap = {
-      type: "invoke",
-      value: {
-        name: "Ethereum",
-        description:
-          "A decentralized, open-source blockchain with smart contract functionality",
-      },
-    };
-    const ethAttachment = { ...ethHeroCard, preview: ethPreviewCard };
+    const ethHeroCard = CardFactory.heroCard(
+      "Ethereum",
+      "A decentralized, open-source blockchain with smart contract functionality",
+      [
+        {
+          url: "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/ca/wp-content/uploads/2022/05/ethereum-1.jpeg",
+        },
+      ],
+      [
+        {
+          type: "openUrl",
+          title: "Official website",
+          value: "https://ethereum.org/en/",
+        },
+        {
+          type: "openUrl",
+          title: "See the current price",
+          value: "https://coinmarketcap.com/currencies/ethereum/",
+        },
+      ]
+    );
+    // const ethPreviewCard = CardFactory.heroCard("Ethereum");
+    // ethPreviewCard.content.tap = {
+    //   type: "invoke",
+    //   value: {
+    //     name: "Ethereum",
+    //     description:
+    //       "A decentralized, open-source blockchain with smart contract functionality",
+    //   },
+    // };
+    const ethAttachment = { ...ethHeroCard };
     attachments.push(ethAttachment);
 
     return {
