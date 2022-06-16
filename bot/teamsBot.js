@@ -229,9 +229,12 @@ class TeamsBot extends TeamsActivityHandler {
 
   // Link Unfurling.
   handleTeamsAppBasedLinkQuery(context, query) {
-    const attachment = CardFactory.thumbnailCard("Thumbnail Card", query.url, [
+    console.log("handleTeamsAppBasedLinkQuery");
+    const attachment = CardFactory.thumbnailCard(
+      "Thumbnail Card by Jason",
       query.url,
-    ]);
+      [query.url]
+    );
 
     const result = {
       attachmentLayout: "list",

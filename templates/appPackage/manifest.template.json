@@ -85,7 +85,7 @@
         {
           "type": "link",
           "value": {
-            "domains": ["*.botframework.com"]
+            "domains": ["*.coinmarketcap.com"]
           }
         }
       ]
