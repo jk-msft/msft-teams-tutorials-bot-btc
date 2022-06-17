@@ -85,7 +85,7 @@
         {
           "type": "link",
           "value": {
-            "domains": ["*.coinmarketcap.com"]
+            "domains": ["coinmarketcap.com", "*.coinmarketcap.com"]
           }
         }
       ]
@@ -94,5 +94,10 @@
   "configurableTabs": [],
   "staticTabs": [],
   "permissions": ["identity", "messageTeamMembers"],
-  "validDomains": []
+  "validDomains": [
+    "coinmarketcap.com",
+    "*.coinmarketcap.com",
+    "youtube.com",
+    "*.youtube.com"
+  ]
 }

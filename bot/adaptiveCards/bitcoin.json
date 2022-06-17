@@ -18,6 +18,11 @@
       "type": "Action.OpenUrl",
       "title": "Details",
       "url": "https://coinmarketcap.com/currencies/bitcoin/"
+    },
+    {
+      "type": "Action.Submit",
+      "title": "TaskModule",
+      "data": { "msteams": { "type": "task/fetch" }, "data": "JasonTaskModule" }
     }
   ],
   "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",

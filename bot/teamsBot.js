@@ -60,6 +60,7 @@ class TeamsBot extends TeamsActivityHandler {
           break;
         }
         case "bitcoin_card": {
+          console.log(3);
           const bitcoinResult = await BitcoinService.now();
           const price = bitcoinResult.quote.USD.price;
           const priceFormatted = CurrencyHelper.formatToUSD(price);
@@ -67,10 +68,13 @@ class TeamsBot extends TeamsActivityHandler {
           const card = cardTools.AdaptiveCards.declare(rawBitcoinCard).render({
             price: priceFormatted,
           });
+          console.log(4);
 
+          console.log(1);
           await context.sendActivity({
             attachments: [CardFactory.adaptiveCard(card)],
           });
+          console.log(2);
 
           break;
         }
@@ -213,6 +217,24 @@ class TeamsBot extends TeamsActivityHandler {
         type: "result",
         attachmentLayout: "list",
         attachments: attachments,
+      },
+    };
+  }
+
+  async handleTeamsTaskModuleFetch(context, taskModuleRequest) {
+    console.log("handleTeamsTaskModuleFetch");
+
+    // The url below should allow CORS to teams.microsoft.com domain
+    return {
+      task: {
+        type: "continue",
+        value: {
+          url: "https://www.youtube.com/embed/Gc2en3nHxA4",
+          fallbackUrl: "https://www.youtube.com/embed/Gc2en3nHxA4",
+          width: "medium",
+          height: "medium",
+          title: "Jason Test",
+        },
       },
     };
   }
