@@ -133,6 +133,8 @@ class TeamsBot extends TeamsActivityHandler {
         return createCardCommand(context, action);
       case "shareMessage":
         return shareMessageCommand(context, action);
+      case "createAdaptiveCard":
+        return createCardsCommand(context, action);
       default:
         throw new Error("NotImplemented");
     }
@@ -287,6 +289,39 @@ function createCardCommand(context, action) {
       type: "result",
       attachmentLayout: "list",
       attachments: [attachment],
+    },
+  };
+}
+
+function createCardsCommand(context, action) {
+  // The user has chosen to create a card by choosing the 'Create Card' context menu command.
+  const data = action.data;
+  const heroCard = CardFactory.heroCard(data.title, data.text);
+  heroCard.content.subtitle = data.subTitle;
+  const attachment = {
+    contentType: heroCard.contentType,
+    content: heroCard.content,
+    preview: heroCard,
+  };
+  const attachments = [];
+  attachments.push(attachment);
+  attachments.push({
+    contentType: heroCard.contentType,
+    content: { title: "g1", text: "a1", subtitle: "r" },
+    preview: heroCard,
+  });
+  attachments.push({
+    contentType: heroCard.contentType,
+    content: { title: "g2", text: "a2", subtitle: "r" },
+    preview: heroCard,
+  });
+  console.log(attachments);
+
+  return {
+    composeExtension: {
+      type: "result",
+      attachmentLayout: "list",
+      attachments: attachments,
     },
   };
 }

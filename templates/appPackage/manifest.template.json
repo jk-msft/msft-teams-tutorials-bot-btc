@@ -65,18 +65,31 @@
             }
           ]
         },
+
         {
-          "id": "searchQuery",
-          "context": ["compose", "commandBox"],
-          "description": "Search cryptocurrency",
-          "title": "Search",
-          "type": "query",
+          "id": "createAdaptiveCard",
+          "type": "action",
+          "context": ["compose"],
+          "description": "Command to run action to create a Card from Compose Box",
+          "title": "Adaptive Card",
           "parameters": [
             {
-              "name": "searchQuery",
-              "title": "Search Cryptocurrency",
-              "description": "Your search query",
+              "name": "title",
+              "title": "Name",
+              "description": "Name of the User",
               "inputType": "text"
+            },
+            {
+              "name": "subTitle",
+              "title": "Designation",
+              "description": "Designation of the User",
+              "inputType": "text"
+            },
+            {
+              "name": "text",
+              "title": "Description",
+              "description": "Description",
+              "inputType": "textarea"
             }
           ]
         }
