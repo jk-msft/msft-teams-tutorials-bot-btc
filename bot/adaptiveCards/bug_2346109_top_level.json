@@ -1,0 +1,21 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "Medium",
+      "weight": "Bolder",
+      "text": "Bug 2504623 Top Level"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "commandId": "Installed",
+      "title": "TaskModule",
+      "data": { "msteams": { "justInTimeInstall": true } }
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4"
+}

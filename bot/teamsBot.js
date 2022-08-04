@@ -8,6 +8,8 @@ const {
 const rawWelcomeCard = require("./adaptiveCards/welcome.json");
 const rawLearnCard = require("./adaptiveCards/learn.json");
 const rawBitcoinCard = require("./adaptiveCards/bitcoin.json");
+const bug2346109TopLevelCard = require("./adaptiveCards/bug_2346109_top_level.json");
+const bug2346109SecondLevelCard = require("./adaptiveCards/bug_2346109_second_level.json");
 const cardTools = require("@microsoft/adaptivecards-tools");
 
 const BitcoinService = require("./src/services/bitcoin-service");
@@ -30,10 +32,12 @@ class TeamsBot extends TeamsActivityHandler {
         // Remove the line break
         txt = removedMentionText.toLowerCase().replace(/\n|\r/g, "").trim();
       }
+      console.log("command", txt);
 
       // Trigger command by IM text
       switch (txt) {
         case "welcome": {
+          console.log("welcome");
           const card =
             cardTools.AdaptiveCards.declareWithoutData(rawWelcomeCard).render();
           await context.sendActivity({
@@ -42,6 +46,7 @@ class TeamsBot extends TeamsActivityHandler {
           break;
         }
         case "learn": {
+          console.log("learn");
           this.likeCountObj.likeCount = 0;
           const card = cardTools.AdaptiveCards.declare(rawLearnCard).render(
             this.likeCountObj
@@ -52,6 +57,7 @@ class TeamsBot extends TeamsActivityHandler {
           break;
         }
         case "bitcoin": {
+          console.log("bitcoin");
           const bitcoinResult = await BitcoinService.now();
           const price = bitcoinResult.quote.USD.price;
           const priceFormatted = CurrencyHelper.formatToUSD(price);
@@ -59,8 +65,14 @@ class TeamsBot extends TeamsActivityHandler {
           await context.sendActivity(priceFormatted);
           break;
         }
+        case "case1": {
+          console.log("case1");
+          await context.sendActivity("case1 response");
+
+          break;
+        }
         case "bitcoin_card": {
-          console.log(3);
+          console.log("bitcoin_card");
           const bitcoinResult = await BitcoinService.now();
           const price = bitcoinResult.quote.USD.price;
           const priceFormatted = CurrencyHelper.formatToUSD(price);
@@ -76,6 +88,32 @@ class TeamsBot extends TeamsActivityHandler {
           });
           console.log(2);
 
+          break;
+        }
+        case "case2": {
+          console.log("case2");
+          await context.sendActivity("case2 response");
+
+          break;
+        }
+        case "toplevel": {
+          console.log("bug_2346109_top_level");
+          const card = cardTools.AdaptiveCards.declare(
+            bug2346109TopLevelCard
+          ).render();
+          await context.sendActivity({
+            attachments: [CardFactory.adaptiveCard(card)],
+          });
+          break;
+        }
+        case "seclevel": {
+          console.log("bug_2346109_second_level");
+          const card = cardTools.AdaptiveCards.declare(
+            bug2346109SecondLevelCard
+          ).render();
+          await context.sendActivity({
+            attachments: [CardFactory.adaptiveCard(card)],
+          });
           break;
         }
         /**
